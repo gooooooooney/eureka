@@ -21,9 +21,6 @@ const roomService = new RoomServiceClient(
   process.env.LIVEKIT_API_SECRET!,
 );
 
-console.log(process.env.LIVEKIT_API_URL!);
-console.log(process.env.LIVEKIT_API_KEY!);
-console.log(process.env.LIVEKIT_API_SECRET!);
 
 const ingressClient = new IngressClient(process.env.LIVEKIT_API_URL!);
 
