@@ -1,13 +1,20 @@
-import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar";
-import { useChat, useConnectionState, useRemoteParticipant } from "@livekit/components-react";
-import { ConnectionState } from "livekit-client";
-import { useEffect, useMemo, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
-import { ChatHeader } from "./chat-header";
-import { ChatForm } from "./chat-form";
-import { ChatList } from "./chat-list";
-import { ChatCommunity } from "./chat-community";
+"use client";
 
+import { useEffect, useMemo, useState } from "react";
+import { ConnectionState } from "livekit-client";
+import { useMediaQuery } from "usehooks-ts";
+import { 
+  useChat,
+  useConnectionState, 
+  useRemoteParticipant
+} from "@livekit/components-react";
+
+import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar";
+
+import { ChatForm, ChatFormSkeleton } from "./chat-form";
+import { ChatList, ChatListSkeleton } from "./chat-list";
+import { ChatHeader, ChatHeaderSkeleton } from "./chat-header";
+import { ChatCommunity } from "./chat-community";
 
 interface ChatProps {
   hostName: string;
@@ -26,17 +33,14 @@ export const Chat = ({
   isFollowing,
   isChatEnabled,
   isChatDelayed,
-  isChatFollowersOnly,
+  isChatFollowersOnly
 }: ChatProps) => {
-  const matches = useMediaQuery("(max-width: 1024px)");
-
-  const { variant, onExpand } = useChatSidebar(state => state)
-
+  const matches = useMediaQuery('(max-width: 1024px)');
+  const { variant, onExpand } = useChatSidebar((state) => state);
   const connectionState = useConnectionState();
-
   const participant = useRemoteParticipant(hostIdentity);
 
-  const isOnline = participant && connectionState === ConnectionState.Connected;
+  const isOnline = participant && connectionState === ConnectionState.Connected
 
   const isHidden = !isChatEnabled || !isOnline;
 
@@ -63,6 +67,7 @@ export const Chat = ({
   const onChange = (value: string) => {
     setValue(value);
   };
+
   return (
     <div className="flex flex-col bg-background border-l border-b pt-0 h-[calc(100vh-80px)]">
       <ChatHeader />
@@ -91,5 +96,15 @@ export const Chat = ({
         />
       )}
     </div>
-  )
-}
+  );
+};
+
+export const ChatSkeleton = () => {
+  return (
+    <div className="flex flex-col border-l border-b pt-0 h-[calc(100vh-80px)] border-2">
+      <ChatHeaderSkeleton />
+      <ChatListSkeleton />
+      <ChatFormSkeleton />
+    </div>
+  );
+};

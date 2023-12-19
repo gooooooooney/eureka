@@ -4,6 +4,9 @@ import { WebhookReceiver } from "livekit-server-sdk";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+// 记得设置webhooks
+// https://cloud.livekit.io/projects/p_2oyzk9khz7j/settings/webhooks
+
 const receiver = new WebhookReceiver(
   process.env.LIVEKIT_API_KEY!,
   process.env.LIVEKIT_API_SECRET!

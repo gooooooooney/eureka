@@ -44,7 +44,7 @@ export const resetIngresses = async (hostIdentity: string) => {
 
 export const createIngress = async (ingressType: IngressInput) => {
   const self = await getSelf();
-
+  
 
   await resetIngresses(self.id);
 
@@ -68,14 +68,15 @@ export const createIngress = async (ingressType: IngressInput) => {
     };
   };
 
+  // livekit free user only has access to 2 ingress
   const ingress = await ingressClient.createIngress(
     ingressType,
     options,
   );
-
   if (!ingress || !ingress.url || !ingress.streamKey) {
     throw new Error("Failed to create ingress");
   }
+
 
   await db.stream.update({
     where: { userId: self.id },
