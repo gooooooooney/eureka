@@ -2,11 +2,11 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
+  // provider = "postgresql"
   url      = env("DATABASE_URL")
   // only needed when using the mysql
-  // relationMode = "prisma"
-  // provider     = "mysql"
+  relationMode = "prisma"
+  provider     = "mysql"
 }
 
 generator client {
