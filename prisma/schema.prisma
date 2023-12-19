@@ -2,11 +2,10 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  // provider = "postgresql"
-  url      = env("DATABASE_URL")
   // only needed when using the mysql
-  relationMode = "prisma"
   provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 generator client {
@@ -52,10 +51,10 @@ model Stream {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // @@fulltext([name])
 
   @@index([userId])
   @@index([ingressId])
-  // @@fulltext([name])
 }
 
 model Follow {
