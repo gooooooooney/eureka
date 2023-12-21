@@ -1,7 +1,7 @@
-import { currentUser } from "@clerk/nextjs";
 
 import { getUserByUsername } from "@/lib/user-service";
 import { StreamPlayer } from "@/components/stream-player";
+import { currentUser } from "@/lib/auth";
 
 interface CreatorPageProps {
   params: {
@@ -15,7 +15,7 @@ const CreatorPage = async ({
   const externalUser = await currentUser();
   const user = await getUserByUsername(params.username);
 
-  if (!user || user.externalUserId !== externalUser?.id || !user.stream) {
+  if (!user  || !user.stream) {
     throw new Error("Unauthorized");
   }
 

@@ -1,6 +1,6 @@
-import { currentUser } from "@clerk/nextjs";
 
 import { db } from "@/lib/db";
+import { currentUser } from "./auth";
 
 export const getSelf = async () => {
   const self = await currentUser();
@@ -10,7 +10,7 @@ export const getSelf = async () => {
   }
 
   const user = await db.user.findUnique({
-    where: { externalUserId: self.id },
+    where: { id: self.id },
   });
 
   if (!user) {

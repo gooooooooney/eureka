@@ -14,22 +14,45 @@ generator client {
 }
 
 model User {
-  id             String  @id @default(uuid())
-  username       String  @unique
-  imageUrl       String  @db.Text
-  externalUserId String  @unique
-  bio            String? @db.Text
-
-  following  Follow[] @relation("Following")
-  followedBy Follow[] @relation("FollowedBy")
+  id            String    @id @default(uuid())
+  username      String?    @unique
+  bio           String?   @db.Text
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  
+  following     Follow[]  @relation("Following")
+  followedBy    Follow[]  @relation("FollowedBy")
 
   blocking  Block[] @relation("Blocking")
   blockedBy Block[] @relation("BlockedBy")
 
   stream Stream?
+  accounts      Account[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Stream {
@@ -85,3 +108,5 @@ model Block {
   @@index([blockerId])
   @@index([blockedId])
 }
+
+

@@ -1,6 +1,5 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { 
   Fullscreen,
@@ -10,6 +9,7 @@ import {
 } from "lucide-react";
 
 import { NavItem, NavItemSkeleton } from "./nav-item";
+import { useUser } from "@/lib/auth";
 
 export const Navigation = () => {
   const pathname = usePathname();
