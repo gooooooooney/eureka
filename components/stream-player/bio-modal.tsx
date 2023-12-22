@@ -14,6 +14,7 @@ import {
 import { updateUser } from "@/actions/user";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Loader } from "lucide-react";
 
 interface BioModalProps {
   initialValue: string | null;
@@ -70,6 +71,7 @@ export const BioModal = ({
               type="submit"
               variant="primary"
             >
+              {isPending && <Loader className="w-4 h-4 mr-2 animate-spin" />}
               Save
             </Button>
           </div>

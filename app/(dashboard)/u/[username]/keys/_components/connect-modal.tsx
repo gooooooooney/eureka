@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useState, useTransition, useRef, ElementRef } from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Loader } from "lucide-react";
 import { IngressInput } from "livekit-server-sdk";
 
 import { createIngress } from "@/actions/ingress";
@@ -91,6 +91,7 @@ export const ConnectModal = () => {
             onClick={onSubmit}
             variant="primary"
           >
+            {isPending &&  <Loader className="h-4 w-4 mr-2 animate-spin" />}
             Generate
           </Button>
         </div>
