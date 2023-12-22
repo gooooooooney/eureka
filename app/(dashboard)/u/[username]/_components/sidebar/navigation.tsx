@@ -13,7 +13,7 @@ import { useUser } from "@/lib/auth";
 
 export const Navigation = () => {
   const pathname = usePathname();
-  const { user } = useUser();
+  const user = useUser();
 
   const routes = [
     {
