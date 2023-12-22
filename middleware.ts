@@ -28,5 +28,6 @@ export default middleware((req) => {
 })
 
 export const config = {
-  matcher: ["/u/:path*", "/sign-in", "/sign-up"]
+  matcher: ["/u/:path*", "/sign-in", "/sign-up"],
+  timeout: 1000 * 60 * 5,
 }
